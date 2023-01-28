@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+    <script defer language="javascript" type="text/javascript" src="/js/light_dark.js"></script>
+<script defer language="javascript" type="text/javascript" src="/js/tabs.js"></script>
+
+
+<script defer language="javascript" type="text/javascript" src="/js/katex.min.js"></script>
+
+
+<script defer language="javascript" type="text/javascript" src="/js/auto-render.min.js"></script>
+
+
+<script defer language="javascript" type="text/javascript" src="/js/katex.js"></script>
+<script defer language="javascript" type="text/javascript" src="/js/toc.js"></script>
+
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="generator" content="Hugo 0.110.0">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subdomain enumeration is cool , How about domain enumeration ? Part I &middot; youssef lahouifi</title>
+    <meta name="description" content="" />
+
+    
+    <link type="text/css" rel="stylesheet" href="/css/poole.css">
+<link type="text/css" rel="stylesheet" href="/css/syntax.css">
+<link type="text/css" rel="stylesheet" href="/css/hyde.css">
+<link type="text/css" rel="stylesheet" href="/css/poison.css">
+<link type="text/css" rel="stylesheet" href="/css/fonts.css">
+<link type="text/css" rel="stylesheet" href="/css/katex.min.css">
+<link type="text/css" rel="stylesheet" href="/css/tabs.css">
+
+
+    
+    
+    <style>
+    body {
+        --sidebar-bg-color: #202020;
+        --sidebar-img-border-color: #515151;
+        --sidebar-p-color: #909090;
+        --sidebar-h1-color: #FFF;
+        --sidebar-a-color: #FFF;
+        --sidebar-socials-color: #FFF;
+        --text-color: #303030;
+        --bkg-color: #FAF9F6;
+        --post-title-color: #303030;
+        --list-color: #5a5a5a;
+        --link-color: #268bd2;
+        --date-color: #515151;
+        --code-color: #bf616a;
+        --code-background-color: #f9f9f9;
+        --moon-sun-color: #FFF;
+        --moon-sun-background-color: #515151;
+    }
+    body.dark-theme {
+        --text-color: #eee;
+        --bkg-color: #121212;
+        --post-title-color: #DBE2E9;
+        --list-color: #9d9d9d;
+        --link-color: #268bd2;
+        --date-color: #9a9a9a;
+        --code-color: #ff7f7f;
+        --code-background-color: #393D47;
+    }
+    body {
+        background-color: var(--bkg-color);
+    }
+</style>
+
+</head>
+
+    <body class="dark-theme">
+        <aside class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="light-dark" align="right">
+    <button class="btn-light-dark">
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M6 .278a.768.768 0 0 1 .08.858a7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277c.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316a.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71C0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        </svg>
+        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M8 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+        </svg>
+    </button>
+</div>
+
+        <div class="sidebar-about">
+    <h1 class="brand">
+        
+            <a href="/">
+                <img src="/images/me2.jpg" alt="brand image">
+            </a>
+        
+        
+            <a href="/">
+                <h1>Youssef Lahouifi</h1>
+            </a>
+        
+    </h1>
+    <p class="lead">
+    
+    </p>
+</div>
+
+        <nav>
+    <ul class="sidebar-nav">
+        
+        
+        
+        
+            
+                
+                    <li class="heading">
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                
+            
+                
+            
+        
+        
+            
+                
+            
+                
+                    <li class="heading">
+                        <a href="/posts/">Posts</a>
+                    </li>
+                    
+                        <li class="sub-heading">
+                            
+                        </li>
+                        
+                            <li class="bullet">
+                                <a href="/posts/domain-enumeration-2/">Subdomain enumeration is cool , How about domain enumeration ? Part II</a>
+                            </li>
+                        
+                            <li class="bullet">
+                                <a href="/posts/domain-enumeration/">Subdomain enumeration is cool , How about domain enumeration ? Part I</a>
+                            </li>
+                        
+                    
+                
+            
+        
+
+    </ul>
+</nav>
+
+        
+    <a target="_blank" class="social" href="https://github.com/yousseflahouifi">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-2 -2 24 24">
+            <path fill="currentColor" d="M18.88 1.099C18.147.366 17.265 0 16.233 0H3.746C2.714 0 1.832.366 1.099 1.099C.366 1.832 0 2.714 0 3.746v12.487c0 1.032.366 1.914 1.099 2.647c.733.733 1.615 1.099 2.647 1.099H6.66c.19 0 .333-.007.429-.02a.504.504 0 0 0 .286-.169c.095-.1.143-.245.143-.435l-.007-.885c-.004-.564-.006-1.01-.006-1.34l-.3.052c-.19.035-.43.05-.721.046a5.555 5.555 0 0 1-.904-.091a2.026 2.026 0 0 1-.872-.39a1.651 1.651 0 0 1-.572-.8l-.13-.3a3.25 3.25 0 0 0-.41-.663c-.186-.243-.375-.407-.566-.494l-.09-.065a.956.956 0 0 1-.17-.156a.723.723 0 0 1-.117-.182c-.026-.061-.004-.111.065-.15c.07-.04.195-.059.378-.059l.26.04c.173.034.388.138.643.311a2.1 2.1 0 0 1 .631.677c.2.355.44.626.722.813c.282.186.566.28.852.28c.286 0 .533-.022.742-.065a2.59 2.59 0 0 0 .585-.196c.078-.58.29-1.028.637-1.34a8.907 8.907 0 0 1-1.333-.234a5.314 5.314 0 0 1-1.223-.507a3.5 3.5 0 0 1-1.047-.872c-.277-.347-.505-.802-.683-1.365c-.177-.564-.266-1.215-.266-1.952c0-1.049.342-1.942 1.027-2.68c-.32-.788-.29-1.673.091-2.652c.252-.079.625-.02 1.119.175c.494.195.856.362 1.086.5c.23.14.414.257.553.352a9.233 9.233 0 0 1 2.497-.338c.859 0 1.691.113 2.498.338l.494-.312a6.997 6.997 0 0 1 1.197-.572c.46-.174.81-.221 1.054-.143c.39.98.424 1.864.103 2.653c.685.737 1.028 1.63 1.028 2.68c0 .737-.089 1.39-.267 1.957c-.177.568-.407 1.023-.689 1.366a3.65 3.65 0 0 1-1.053.865c-.42.234-.828.403-1.223.507a8.9 8.9 0 0 1-1.333.235c.45.39.676 1.005.676 1.846v3.11c0 .147.021.266.065.357a.36.36 0 0 0 .208.189c.096.034.18.056.254.064c.074.01.18.013.318.013h2.914c1.032 0 1.914-.366 2.647-1.099c.732-.732 1.099-1.615 1.099-2.647V3.746c0-1.032-.367-1.914-1.1-2.647z"/>
+        </svg>
+    </a>
+
+
+    <a target="_blank" class="social" href="https://linkedin.com/in/youssefla/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 448 512">
+            <path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z"/>
+        </svg>
+    </a>
+
+
+    <a target="_blank" class="social" href="https://twitter.com/YLahouifi">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M5.032 14.286c6.037 0 9.34-4.837 9.34-9.032c0-.137 0-.274-.01-.41A6.56 6.56 0 0 0 16 3.2c-.6.256-1.235.425-1.885.5a3.207 3.207 0 0 0 1.443-1.757c-.645.37-1.35.63-2.085.77a3.322 3.322 0 0 0-1.862-.958a3.384 3.384 0 0 0-2.082.334a3.223 3.223 0 0 0-1.442 1.49a3.08 3.08 0 0 0-.208 2.03a9.57 9.57 0 0 1-3.747-.963a9.269 9.269 0 0 1-3.018-2.354a3.086 3.086 0 0 0-.36 2.314c.189.787.68 1.475 1.376 1.924a3.344 3.344 0 0 1-1.49-.398v.04c0 .734.263 1.444.743 2.01a3.3 3.3 0 0 0 1.89 1.102c-.483.128-.99.146-1.482.055a3.19 3.19 0 0 0 1.168 1.577a3.36 3.36 0 0 0 1.9.627A6.732 6.732 0 0 1 0 12.86a9.527 9.527 0 0 0 5.032 1.423"/>
+        </svg>
+    </a>
+
+
+
+
+
+
+
+
+        <p class="footnote">
+powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a target="_blank" href="https://github.com/lukeorth/poison">poison</a>
+    <br>
+    &copy; 2023 youssef lahouifi. All rights reserved.
+</p>
+
+  </div>
+</aside>
+
+        <main class="content container">
+            <div class="post">
+  <div class="info">
+    <h1 class="post-title">
+        <a href="/posts/domain-enumeration/">Subdomain enumeration is cool , How about domain enumeration ? Part I</a>
+    </h1>
+    <time datetime="2023-01-26T00:00:00Z" class="post-date">
+        January 26, 2023
+    </time>
+    
+    <ul class="tags">
+        
+        <li class="tag-bugbounty">
+            <a href="/tags/bugbounty">bugbounty</a>
+        </li>
+        
+        <li class="tag-reconnaissance">
+            <a href="/tags/reconnaissance">reconnaissance</a>
+        </li>
+        
+        <li class="tag-pentest">
+            <a href="/tags/pentest">pentest</a>
+        </li>
+        
+        <li class="tag-">
+            <a href="/tags/"></a>
+        </li>
+        
+    </ul>
+    
+    
+    
+    
+    
+    
+</div>
+
+  <h2 id="introduction">Introduction</h2>
+<p>Subdomain enumeration is a crucial step in the reconnaissance phase of a penetration test or bug bounty. It involves identifying all the subdomains associated with a target domain, which can reveal valuable information about the organization&rsquo;s infrastructure and potentially uncover security vulnerabilities. While many articles have covered the techniques used for subdomain enumeration, it is important to also consider the concept of domain enumeration. This involves finding other domain names that have a different second-level domain name but are related to the same entity. This can provide a more comprehensive understanding of an organization&rsquo;s online presence and potential security vulnerabilities. In this blog post, we will delve deeper into the topic of domain enumeration, examining the techniques and tools used to uncover related domain names.</p>
+<h2 id="but-why-">But Why ?</h2>
+<p>The reason why domain enumeration is an important aspect to consider in the reconnaissance phase of a penetration test is that it allows for a more comprehensive understanding of an organization&rsquo;s online presence. By identifying related domain names, an attacker can gain insight into the different assets the organization owns and operates, and the more assets an organization has, the more potential vulnerabilities there are. It&rsquo;s a good practice to be thorough and consider all possible assets and related domains to get a better understanding of the target&rsquo;s infrastructure and potential vulnerabilities</p>
+<h2 id="tools-and-techniques-used-to-find-domains">Tools And Techniques Used To Find Domains</h2>
+<h3 id="1-google">1. Google</h3>
+<p><img src="/images/3.png" alt="google"></p>
+<p>A very simple technique for domain enumeration is using search engines like Google to find filiales of the organization. For example, searching for &ldquo;verizon media filiales&rdquo; will show a list of organizations that belong to Verizon Media. This technique can reveal other domains that are related to the target organization .</p>
+<p><strong>Note :</strong> You can use <a href="https://en.wikipedia.org/wiki/List_of_mergers_and_acquisitions_by_Yahoo!">wikipedia</a> too.</p>
+<h3 id="2-shared-dns-server-reverse-ns">2. Shared DNS Server (reverse ns)</h3>
+<p><img src="/images/1.png" alt="reverse ns lookup"></p>
+<p>If an organization owns its own DNS server one efficient technique for domain enumeration is known as shared DNS. This method involves identifying other domains that share the same DNS server as the target domain. This is a quick way to find other domains to target within an organization, as it is likely that these domains are owned or operated by the same entity</p>
+<p>There are a few tools that can assist in identifying domains sharing the same dns server, such as <a href="https://hackertarget.com/find-shared-dns-servers/">hackertarget</a> or <a href="https://dnslytics.com/reverse-ns">dnsanalytics</a>. These tools make it easy to find other domains that share the same DNS server as the target domain, by simply inputing the target&rsquo;s nameserver (NS) record</p>
+<p><strong>Note :</strong> You can find other available tools in google .</p>
+<h3 id="3-shared-ip-adress-reverse-a">3. Shared IP adress (reverse A)</h3>
+<p><img src="/images/2.png" alt="reverse ip lookup"></p>
+<p>Another technique that can be used for domain enumeration is called reverse IP lookup. This technique involves identifying other domains that share the same A record (IP address) as the target domain. This can reveal other domains that are hosted on the same server or IP address as the target domain, which may be owned or operated by the same entity. Websites such as <a href="https://hackertarget.com/reverse-ip-lookup/">hackertarget</a>, <a href="https://www.yougetsignal.com/tools/web-sites-on-web-server/">yougetsignal</a>  or <a href="https://dnslytics.com/reverse-ip">dnsanalytics</a> can also be used to perform a reverse IP lookup by simply inputting the target&rsquo;s IP address</p>
+<h3 id="4-shared-mail-server-reverse-mx">4. Shared mail server (reverse mx)</h3>
+<p>Another technique that can be used for domain enumeration is doing a reverse lookup on MX records. MX records specify the mail server responsible for accepting email messages on behalf of a domain. By doing a reverse lookup on the MX records of a target domain, you can find other domains that share the same MX records and are potentially related to the same entity</p>
+<h3 id="5-subject-alternate-name-in-ssl-certificate">5. Subject Alternate Name In SSL Certificate</h3>
+<p>X.509 specification extension, SAN, allows multiple hostnames to be assigned to a single SSL certificate. This extension is called Subject Alternative Name. It enables to specify additional domain names to be protected by a certificate</p>
+<p>You can extract domain names from SANs using openssl for example :</p>
+
+
+
+
+
+<div class="tabs-container">
+    <div class="tabs" role="tablist">
+
+	    
+        
+            
+            <button class="tab active" id="cfaedb">
+            
+
+                Extract SAN
+            </button>
+
+	    
+
+    </div>
+
+    
+    
+        
+            <div class="tabcontent cfaedb" style="display:block;">
+        
+
+        
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>sed -ne &#39;s/^\( *\)Subject:/\1/p;/X509v3 Subject Alternative Name/{
+</span></span><span style="display:flex;"><span>    N;s/^.*\n//;:a;s/^\( *\)\(.*\), /\1\2\n\1/;ta;p;q; }&#39; &lt; &lt;(
+</span></span><span style="display:flex;"><span>    openssl x509 -noout -text -in &lt;(
+</span></span><span style="display:flex;"><span>        openssl s_client -ign_eof 2&gt;/dev/null &lt;&lt;&lt;$&#39;HEAD / HTTP/1.0\r\n\r&#39; \
+</span></span><span style="display:flex;"><span>            -connect yahoo.com:443 ) )</span></span></code></pre></div>
+
+        
+        
+    </div>
+    
+</div>
+
+<h3 id="6-csp-headers">6. CSP headers</h3>
+<p>Content-Security-Policy HTTP header allows us to create a whitelist of sources of trusted content, and instructs the browser to only execute or render resources from those sources. It will list a bunch of sources (domains) that might blong to the organization.</p>
+<p>You can use curl to view the header :</p>
+
+
+
+
+
+<div class="tabs-container">
+    <div class="tabs" role="tablist">
+
+	    
+        
+            
+            <button class="tab active" id="fbaced">
+            
+
+                view csp header
+            </button>
+
+	    
+
+    </div>
+
+    
+    
+        
+            <div class="tabcontent fbaced" style="display:block;">
+        
+
+        
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>curl --head -s -L https://maktoob.yahoo.com/ | grep -iE &#34;Content-Security-Policy&#34;</span></span></code></pre></div>
+
+        
+        
+    </div>
+    
+</div>
+
+<h3 id="7-autonomous-system-numbers">7. Autonomous System Numbers</h3>
+<p>Discovering the Autonomous System Number (ASN) of an organization can be a useful technique in domain enumeration. ASN is a unique number assigned to a network or group of networks by a regional internet registry. Identifying the ASN of an organization can help us identify the netblocks ( IP address ranges) that belong to that organization. This in-turn can lead to discovering new domain names. For example, by running reverse IP lookups on the identified netblocks, or by querying each IP address for SSL/TLS certificates and extracting hostnames from the returned certificates, we can discover new domains that are associated with the target organization</p>
+<p>There are third-party web services that provide IP to ASN mapping:</p>
+
+
+
+
+
+<div class="tabs-container">
+    <div class="tabs" role="tablist">
+
+	    
+        
+            
+            <button class="tab active" id="efdcab">
+            
+
+                Find ASNs
+            </button>
+
+	    
+
+    </div>
+
+    
+    
+        
+            <div class="tabcontent efdcab" style="display:block;">
+        
+
+        
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>curl -s http://ip-api.com/json/98.137.11.164 |  jq -r .as</span></span></code></pre></div>
+
+        
+        
+    </div>
+    
+</div>
+
+<p>The ASN numbers found can be used to find netblocks of the domain. We can use WHOIS queries to find all the IP ranges that belong to an ASN:</p>
+
+
+
+
+
+<div class="tabs-container">
+    <div class="tabs" role="tablist">
+
+	    
+        
+            
+            <button class="tab active" id="becdfa">
+            
+
+                Find netblocks using whois
+            </button>
+
+	    
+
+    </div>
+
+    
+    
+        
+            <div class="tabcontent becdfa" style="display:block;">
+        
+
+        
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>whois -h whois.radb.net  -- &#39;-i origin AS36647&#39; | grep -Eo &#34;([0-9.]+){4}/[0-9]+&#34; | uniq</span></span></code></pre></div>
+
+        
+        
+    </div>
+    
+</div>
+
+<p>The netblocks found can be used to find other domains belonging to the organization using for example <a href="https://github.com/cheetz/sslScrape">sslScrape</a> :
+
+
+
+
+
+<div class="tabs-container">
+    <div class="tabs" role="tablist">
+
+	    
+        
+            
+            <button class="tab active" id="efdbca">
+            
+
+                extract domains from ssl certificate
+            </button>
+
+	    
+
+    </div>
+
+    
+    
+        
+            <div class="tabcontent efdbca" style="display:block;">
+        
+
+        
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>python sslScrape.py 67.195.0.0/17</span></span></code></pre></div>
+
+        
+        
+    </div>
+    
+</div>
+</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>To summarize, in this blog post, we have discussed various techniques for domain enumeration such as shared DNS, reverse IP lookup, MX record reverse lookup, and finding ASN. I hope that you have learned something new and find these techniques useful in your own reconnaissance efforts.</p>
+<p>In the next part of this blog post, we will discuss how to leverage certificate transparency to find more domains, as well as introduce few tools that can aid in finding more domains and monitoring new domains as they appear. With the right techniques and tools, you&rsquo;ll be able to gain a comprehensive understanding of an organization&rsquo;s online presence and potential vulnerabilities .</p>
+
+  <hr>
+<div class="footer">
+    
+	    
+            
+        
+	    
+            
+	            <a class="next-post" href="/posts/domain-enumeration-2/?ref=footer">Subdomain enumeration is cool , How about domain... »</a>
+	        
+        
+    
+</div>
+
+  <div class="article-toc " >
+    <h4></h4>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#but-why-">But Why ?</a></li>
+    <li><a href="#tools-and-techniques-used-to-find-domains">Tools And Techniques Used To Find Domains</a>
+      <ul>
+        <li><a href="#1-google">1. Google</a></li>
+        <li><a href="#2-shared-dns-server-reverse-ns">2. Shared DNS Server (reverse ns)</a></li>
+        <li><a href="#3-shared-ip-adress-reverse-a">3. Shared IP adress (reverse A)</a></li>
+        <li><a href="#4-shared-mail-server-reverse-mx">4. Shared mail server (reverse mx)</a></li>
+        <li><a href="#5-subject-alternate-name-in-ssl-certificate">5. Subject Alternate Name In SSL Certificate</a></li>
+        <li><a href="#6-csp-headers">6. CSP headers</a></li>
+        <li><a href="#7-autonomous-system-numbers">7. Autonomous System Numbers</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
+</div>
+
+</div>
+        </main>
+    </body>
+</html>

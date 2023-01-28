@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>About on youssef lahouifi</title>
+    <link>/about/</link>
+    <description>Recent content in About on youssef lahouifi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>/about/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/about/about/</guid>
+      <description>About You should enjoy the little detours to the fullest. Because that&amp;rsquo;s where you&amp;rsquo;ll find the things more important than what you want
+— Ging Freecs
+Welcome to my about page! I am a passionate hacker and software developer with a strong drive to push the boundaries of technology. With 4 years of experience under my belt, I have had the opportunity to uncover vulnerabilities in some of the world&amp;rsquo;s most well-known organizations ,governments and universities, including but not limited to Microsoft, Intel, University of cambridge, the Dutch government, and the US Department of Defense&amp;hellip;</description>
+    </item>
+    
+  </channel>
+</rss>

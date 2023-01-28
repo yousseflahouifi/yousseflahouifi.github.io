@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>reconnaissance on youssef lahouifi</title>
+    <link>/tags/reconnaissance/</link>
+    <description>Recent content in reconnaissance on youssef lahouifi</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="/tags/reconnaissance/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Subdomain enumeration is cool , How about domain enumeration ? Part II</title>
+      <link>/posts/domain-enumeration-2/</link>
+      <pubDate>Fri, 27 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/domain-enumeration-2/</guid>
+      <description>Introduction In the previous part of this blog, we delved into the world of domain enumeration and discussed various techniques used to find domains associated with an organization. We explored methods such as shared DNS, reverse IP lookup, MX record reverse lookup, and finding ASN which can help to uncover related domain names to an organization.
+In this part of the blog post we will see how leveraging certificate transparency can help us discover even more domains belonging to an organization We will examine the power of this technique along with tools used to uncover more related domains.</description>
+    </item>
+    
+    <item>
+      <title>Subdomain enumeration is cool , How about domain enumeration ? Part I</title>
+      <link>/posts/domain-enumeration/</link>
+      <pubDate>Thu, 26 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/domain-enumeration/</guid>
+      <description>Introduction Subdomain enumeration is a crucial step in the reconnaissance phase of a penetration test or bug bounty. It involves identifying all the subdomains associated with a target domain, which can reveal valuable information about the organization&amp;rsquo;s infrastructure and potentially uncover security vulnerabilities. While many articles have covered the techniques used for subdomain enumeration, it is important to also consider the concept of domain enumeration. This involves finding other domain names that have a different second-level domain name but are related to the same entity.</description>
+    </item>
+    
+  </channel>
+</rss>
